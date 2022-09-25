@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -23,7 +24,6 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final JavaMailSender javaMailSender;
     private final PasswordEncoder passwordEncoder;
-//    private final AuthenticationManager authenticationManager;
 
     @Transactional
     public Account processNewAccount(SignUpForm signUpForm) {
@@ -33,7 +33,7 @@ public class AccountService {
         return newAccount;
     }
 
-    private Account saveNewAccount(SignUpForm signUpForm) {
+    private Account saveNewAccount(@Valid SignUpForm signUpForm) {
         Account account = Account.builder()
                 .email(signUpForm.getEmail())
                 .nickname(signUpForm.getNickname())
@@ -59,12 +59,6 @@ public class AccountService {
                 account.getNickname(),
                 account.getPassword(),
                 List.of(new SimpleGrantedAuthority("ROLE_USER")));
-
-//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-//                username,password);
-//        Authentication authenticate = authenticationManager.authenticate(token);
-
-        SecurityContext context = SecurityContextHolder.getContext();
-        context.setAuthentication(token);
+        SecurityContextHolder.getContext().setAuthentication(token);
     }
 }

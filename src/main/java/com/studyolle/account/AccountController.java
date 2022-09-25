@@ -51,7 +51,7 @@ public class AccountController {
             return view;
         }
 
-        if (!account.validToken(token)) {
+        if (!account.isValidToken(token)) {
             model.addAttribute("error", "wrong.token");
             return view;
         }
