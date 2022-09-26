@@ -5,20 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <title>StudyOlle</title>
-    <link rel="stylesheet" href="/node_modu">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <style>
         .container {
             max-width: 100%;
         }
     </style>
-</head>>>
+</head>
 <body class="bg-light">
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="/" th:href="@{/}">
         <img src="/images/logo_sm.png" width="30" height="30">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -26,8 +25,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <form th:action="@{/search/study}" class="form-inline" method="get">
-                    <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="스터디 찾기"
-                           aria-label="Search"/>
+                    <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="스터디 찾기" aria-label="Search" />
                 </form>
             </li>
         </ul>
@@ -55,7 +53,7 @@
                         <span sec:authentication="name">Username</span>
                     </h6>
                     <a class="dropdown-item" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a>
-                    <a class="dropdown-item">스터디</a>
+                    <a class="dropdown-item" >스터디</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
                     <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
@@ -79,15 +77,8 @@
         </div>
     </footer>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="application/javascript">
     (function () {
 
