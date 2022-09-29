@@ -20,6 +20,6 @@ public class MainController {
 
     @GetMapping("/login")
     public String login() {
-        return "templates/login";
+        return "login";
     }
 }
