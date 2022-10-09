@@ -1,6 +1,5 @@
 package com.studyolle.domain;
 
-import com.studyolle.settings.Profile;
 import lombok.*;
 
 import javax.persistence.*;
