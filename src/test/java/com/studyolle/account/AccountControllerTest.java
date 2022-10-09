@@ -93,7 +93,7 @@ class AccountControllerTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("account/sign-up"))
-                .andExpect(unauthenticated());;
+                .andExpect(unauthenticated());
     }
 
     @Test
