@@ -57,11 +57,11 @@ class SettingsControllerTest {
     @DisplayName("수정 성공")
     void update_profile() throws Exception {
         String update = "update";
-        mockMvc.perform(post(SettingsController.SETTING_PROFILE_URL)
+        mockMvc.perform(post(SettingsController.SETTINGS_PROFILE_URL)
                         .param("bio", update)
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(SettingsController.SETTING_PROFILE_URL))
+                .andExpect(redirectedUrl(SettingsController.SETTINGS_PROFILE_URL))
                 .andExpect(flash().attributeExists("message"));
 
         Account jongchan = accountRepository.findByNickname("jongchan");
@@ -73,11 +73,11 @@ class SettingsControllerTest {
     @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void update_profile_fail() throws Exception {
         String update = "가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사가나다라마바사";
-        mockMvc.perform(post(SettingsController.SETTING_PROFILE_URL)
+        mockMvc.perform(post(SettingsController.SETTINGS_PROFILE_URL)
                         .param("bio", update)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name(SettingsController.SETTING_PROFILE_VIEW_NAME))
+                .andExpect(view().name(SettingsController.SETTINGS_PROFILE_VIEW_NAME))
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("profile"))
                 .andExpect(model().hasErrors());
@@ -90,7 +90,7 @@ class SettingsControllerTest {
     @DisplayName("프로필 수정폼")
     @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void profile_update_form() throws Exception {
-        mockMvc.perform(get(SettingsController.SETTING_PROFILE_URL))
+        mockMvc.perform(get(SettingsController.SETTINGS_PROFILE_URL))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("profile"));
@@ -100,12 +100,12 @@ class SettingsControllerTest {
     @DisplayName("비멀번호 수정 테스트")
     @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void password_update() throws Exception {
-        mockMvc.perform(post(SettingsController.SETTING_PASSWORD_URL)
+        mockMvc.perform(post(SettingsController.SETTINGS_PASSWORD_URL)
                         .param("newPassword", "!12rlawhdcks")
                         .param("newPasswordConfirm", "!12rlawhdcks")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(SettingsController.SETTING_PASSWORD_URL))
+                .andExpect(redirectedUrl(SettingsController.SETTINGS_PASSWORD_URL))
                 .andExpect(flash().attributeExists("message"));
 
         Account jonghan = accountRepository.findByNickname("jongchan");
@@ -116,12 +116,12 @@ class SettingsControllerTest {
     @DisplayName("비멀번호 수정 실패 테스트")
     @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void password_update_fail() throws Exception {
-        mockMvc.perform(post(SettingsController.SETTING_PASSWORD_URL)
+        mockMvc.perform(post(SettingsController.SETTINGS_PASSWORD_URL)
                         .param("newPassword", "!12rlawhdcks")
                         .param("newPasswordConfirm", "asdfbasdf")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name(SettingsController.SETTING_PASSWORD_VIEW_NAME))
+                .andExpect(view().name(SettingsController.SETTINGS_PASSWORD_VIEW_NAME))
                 .andExpect(model().hasErrors())
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("passwordForm"));
@@ -131,7 +131,7 @@ class SettingsControllerTest {
     @DisplayName("비밀번호 수정 폼")
     @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void password_update_form() throws Exception {
-        mockMvc.perform(get(SettingsController.SETTING_PASSWORD_URL))
+        mockMvc.perform(get(SettingsController.SETTINGS_PASSWORD_URL))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("passwordForm"));
