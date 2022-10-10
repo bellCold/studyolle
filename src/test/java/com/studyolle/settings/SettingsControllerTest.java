@@ -109,7 +109,7 @@ class SettingsControllerTest {
                 .andExpect(flash().attributeExists("message"));
 
         Account jonghan = accountRepository.findByNickname("jongchan");
-        assertTrue(passwordEncoder.matches("!12rlawhdcks",jonghan.getPassword()));
+        assertTrue(passwordEncoder.matches("!12rlawhdcks", jonghan.getPassword()));
     }
 
     @Test
@@ -137,4 +137,42 @@ class SettingsControllerTest {
                 .andExpect(model().attributeExists("passwordForm"));
     }
 
+    @Test
+    @DisplayName("닉네임 수정 폼")
+    @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void nickname_update_form() throws Exception {
+        mockMvc.perform(get(SettingsController.SETTINGS_ACCOUNT_URL))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("nicknameForm"));
+    }
+
+    @Test
+    @DisplayName("닉네임 수정 성공")
+    @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void nickname_update_success() throws Exception {
+        mockMvc.perform(post(SettingsController.SETTINGS_ACCOUNT_URL)
+                        .param("nickname", "bellhot")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(SettingsController.SETTINGS_ACCOUNT_URL))
+                .andExpect(flash().attributeExists("message"));
+
+        Account bellhot = accountRepository.findByNickname("bellhot");
+        assertEquals("bellhot", bellhot.getNickname());
+    }
+
+    @Test
+    @DisplayName("닉네임 수정 실패")
+    @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void nickname_update_fail() throws Exception {
+        mockMvc.perform(post(SettingsController.SETTINGS_ACCOUNT_URL)
+                        .param("nickname", "!@#!@#!@#!@#")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name(SettingsController.SETTINGS_ACCOUNT_VIEW_NAME))
+                .andExpect(model().hasErrors())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("nicknameForm"));
+    }
 }
