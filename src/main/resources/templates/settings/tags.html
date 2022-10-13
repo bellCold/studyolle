@@ -19,23 +19,15 @@
                         또는 엔터를 입력하세요.
                     </div>
                     <div id="whitelist" th:text="${whitelist}" hidden></div>
-                    <input id="tags" type="text" name="tags" th:value="${#strings.listJoin(tags,',')}"
+                    <input id="tags" type="text" name="tags" th:value="${#strings.listJoin(tags, ',')}"
                            class="tagify-outside" aria-describedby="tagHelp"/>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script th:replace="fragments.html :: ajax-csrf-header"></script>
 <script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
-<script type="application/javascript" th:inline="javascript">
-    $(function () {
-        var csrfToken = /*[[${_csrf.token}]]*/ null;
-        var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
-        $(document).ajaxSend(function (e, xhr, options) {
-            xhr.setRequestHeader(csrfHeader, csrfToken);
-        });
-    });
-</script>
 <script type="application/javascript">
     $(function () {
         function tagRequest(url, tagTitle) {
@@ -67,7 +59,7 @@
         var tagify = new Tagify(tagInput, {
             pattern: /^.{0,20}$/,
             whitelist: JSON.parse(document.querySelector("#whitelist").textContent),
-            dropdown: {
+            dropdown : {
                 enabled: 1, // suggest tags after a single character input
             } // map tags
         });
