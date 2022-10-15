@@ -6,8 +6,11 @@ import com.studyolle.account.AccountService;
 import com.studyolle.account.SignUpForm;
 import com.studyolle.domain.Account;
 import com.studyolle.domain.Tag;
+import com.studyolle.domain.Zone;
 import com.studyolle.settings.form.TagForm;
+import com.studyolle.settings.form.ZoneForm;
 import com.studyolle.tag.TagRepository;
+import com.studyolle.zone.ZoneRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,12 +37,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 class SettingsControllerTest {
 
-    @Autowired MockMvc mockMvc;
-    @Autowired AccountService accountService;
-    @Autowired AccountRepository accountRepository;
-    @Autowired PasswordEncoder passwordEncoder;
-    @Autowired ObjectMapper objectMapper;
-    @Autowired TagRepository tagRepository;
+    @Autowired
+    MockMvc mockMvc;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    AccountRepository accountRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    ObjectMapper objectMapper;
+    @Autowired
+    TagRepository tagRepository;
+    @Autowired
+    ZoneRepository zoneRepository;
+
+    private Zone testZone = Zone.builder().city("테스트").localNameOfCity("테스트시").province("테스트주").build();
 
     @BeforeEach
     void create() {
@@ -48,23 +61,65 @@ class SettingsControllerTest {
         signUpForm.setEmail("kkj8219@naver.com");
         signUpForm.setPassword("12345678");
         accountService.processNewAccount(signUpForm);
+        zoneRepository.save(testZone);
     }
 
     @AfterEach
     void delete() {
         accountRepository.deleteAll();
+        zoneRepository.deleteAll();
     }
 
     @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    @DisplayName("계정의 지역 정보 수정 폼")
+    @DisplayName("관심 지역 폼")
     @Test
-    void updateZonesForm() throws Exception {
+    void update_zones_form() throws Exception {
         mockMvc.perform(get(ROOT + SETTINGS + ZONES))
+                .andExpect(status().isOk())
                 .andExpect(view().name(SETTINGS + ZONES))
                 .andExpect(model().attributeExists("account"))
-                .andExpect(model().attributeExists("whitelist"))
-                .andExpect(model().attributeExists("zones"));
+                .andExpect(model().attributeExists("zones"))
+                .andExpect(model().attributeExists("whitelist"));
     }
+
+    @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @DisplayName("지역 태그 추가")
+    @Test
+    void update_zones() throws Exception {
+        ZoneForm zoneForm = new ZoneForm();
+        zoneForm.setZoneName(testZone.toString());
+
+        mockMvc.perform(post(ROOT + SETTINGS + ZONES + "/add")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(zoneForm)))
+                .andExpect(status().isOk());
+
+        Account jongchan = accountRepository.findByNickname("jongchan");
+        Zone byCityAndProvince = zoneRepository.findByCityAndProvince(testZone.getCity(), testZone.getProvince());
+        assertTrue(jongchan.getZones().contains(byCityAndProvince));
+    }
+
+    @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @DisplayName("지역 태그 삭제")
+    @Test
+    void update_zones_remove() throws Exception {
+        Account jongchan = accountRepository.findByNickname("jongchan");
+        accountService.addZone(jongchan, testZone);
+
+        ZoneForm zoneForm = new ZoneForm();
+        zoneForm.setZoneName(testZone.toString());
+
+        mockMvc.perform(post(ROOT + SETTINGS + ZONES + "/remove")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(zoneForm)))
+                .andExpect(status().isOk());
+
+        Zone byCityAndProvince = zoneRepository.findByCityAndProvince(testZone.getCity(), testZone.getProvince());
+        assertFalse(jongchan.getZones().contains(byCityAndProvince));
+    }
+
 
     @WithUserDetails(value = "jongchan", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DisplayName("계정의 태그 수정 폼")
