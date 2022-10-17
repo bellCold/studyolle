@@ -38,3 +38,5 @@ out/
 
 
 src/main/resources/static/node_modules
+
+src/main/resources/application-dev.properties
