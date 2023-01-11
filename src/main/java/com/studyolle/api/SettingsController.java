@@ -4,14 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studyolle.api.form.*;
 import com.studyolle.application.AccountService;
+import com.studyolle.application.tag.TagRepository;
+import com.studyolle.application.zone.ZoneRepository;
 import com.studyolle.domain.Account;
 import com.studyolle.domain.Tag;
 import com.studyolle.domain.Zone;
 import com.studyolle.global.annotation.CurrentUser;
 import com.studyolle.global.validator.NicknameValidator;
 import com.studyolle.global.validator.PasswordFormValidator;
-import com.studyolle.application.tag.TagRepository;
-import com.studyolle.application.zone.ZoneRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -27,22 +27,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.studyolle.api.SettingsController.ROOT;
-import static com.studyolle.api.SettingsController.SETTINGS;
+import static com.studyolle.api.constants.Url.*;
 
 @Controller
 @RequestMapping(ROOT + SETTINGS)
 @RequiredArgsConstructor
 public class SettingsController {
-
-    static final String ROOT = "/";
-    static final String SETTINGS = "settings";
-    static final String PROFILE = "/profile";
-    static final String PASSWORD = "/password";
-    static final String NOTIFICATIONS = "/notifications";
-    static final String ACCOUNT = "/account";
-    static final String TAGS = "/tags";
-    static final String ZONES = "/zones";
 
     private final AccountService accountService;
     private final ModelMapper modelMapper;

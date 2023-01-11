@@ -1,6 +1,5 @@
 package com.studyolle.api;
 
-import com.studyolle.account.*;
 import com.studyolle.api.form.SignUpForm;
 import com.studyolle.application.AccountService;
 import com.studyolle.application.account.AccountRepository;
