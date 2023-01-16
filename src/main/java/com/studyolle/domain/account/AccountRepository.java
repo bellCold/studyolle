@@ -1,6 +1,5 @@
-package com.studyolle.application.account;
+package com.studyolle.domain.account;
 
-import com.studyolle.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

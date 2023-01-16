@@ -1,6 +1,6 @@
 package com.studyolle.api.form;
 
-import com.studyolle.domain.Zone;
+import com.studyolle.domain.zone.Zone;
 import lombok.Getter;
 import lombok.Setter;
 

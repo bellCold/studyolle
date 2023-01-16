@@ -1,6 +1,6 @@
 package com.studyolle.global.validator;
 
-import com.studyolle.application.account.AccountRepository;
+import com.studyolle.domain.account.AccountRepository;
 import com.studyolle.api.form.SignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

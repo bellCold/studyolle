@@ -2,8 +2,8 @@ package com.studyolle.api;
 
 import com.studyolle.api.form.SignUpForm;
 import com.studyolle.application.AccountService;
-import com.studyolle.application.account.AccountRepository;
-import com.studyolle.domain.Account;
+import com.studyolle.domain.account.AccountRepository;
+import com.studyolle.domain.account.Account;
 import com.studyolle.global.annotation.CurrentUser;
 import com.studyolle.global.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;

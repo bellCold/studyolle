@@ -1,6 +1,5 @@
-package com.studyolle.application.zone;
+package com.studyolle.domain.zone;
 
-import com.studyolle.domain.Zone;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ZoneRepository extends JpaRepository<Zone, Long> {

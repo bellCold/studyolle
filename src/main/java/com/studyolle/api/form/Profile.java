@@ -1,7 +1,5 @@
 package com.studyolle.api.form;
 
-import com.studyolle.domain.Account;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

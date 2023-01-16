@@ -1,8 +1,8 @@
 package com.studyolle.application;
 
-import com.studyolle.domain.Account;
-import com.studyolle.domain.Study;
-import com.studyolle.application.study.StudyRepository;
+import com.studyolle.domain.account.Account;
+import com.studyolle.domain.study.Study;
+import com.studyolle.domain.study.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

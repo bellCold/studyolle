@@ -1,6 +1,5 @@
-package com.studyolle.application.tag;
+package com.studyolle.domain.tag;
 
-import com.studyolle.domain.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

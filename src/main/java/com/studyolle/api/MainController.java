@@ -1,7 +1,7 @@
 package com.studyolle.api;
 
 import com.studyolle.global.annotation.CurrentUser;
-import com.studyolle.domain.Account;
+import com.studyolle.domain.account.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,9 +1,9 @@
 package com.studyolle.api;
 
 import com.studyolle.global.annotation.CurrentUser;
-import com.studyolle.domain.Account;
-import com.studyolle.domain.Study;
-import com.studyolle.application.study.StudyRepository;
+import com.studyolle.domain.account.Account;
+import com.studyolle.domain.study.Study;
+import com.studyolle.domain.study.StudyRepository;
 import com.studyolle.application.StudyService;
 import com.studyolle.api.form.StudyForm;
 import com.studyolle.global.validator.StudyFormValidator;
