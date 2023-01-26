@@ -1,16 +1,16 @@
 package com.studyolle.settings;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.studyolle.account.AccountRepository;
-import com.studyolle.account.AccountService;
-import com.studyolle.account.SignUpForm;
-import com.studyolle.domain.Account;
-import com.studyolle.domain.Tag;
-import com.studyolle.domain.Zone;
-import com.studyolle.settings.form.TagForm;
-import com.studyolle.settings.form.ZoneForm;
-import com.studyolle.tag.TagRepository;
-import com.studyolle.zone.ZoneRepository;
+import com.studyolle.api.form.SignUpForm;
+import com.studyolle.api.form.TagForm;
+import com.studyolle.api.form.ZoneForm;
+import com.studyolle.application.AccountService;
+import com.studyolle.domain.account.AccountRepository;
+import com.studyolle.domain.tag.TagRepository;
+import com.studyolle.domain.zone.ZoneRepository;
+import com.studyolle.domain.account.Account;
+import com.studyolle.domain.tag.Tag;
+import com.studyolle.domain.zone.Zone;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +25,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.studyolle.settings.SettingsController.*;
+import static com.studyolle.api.constants.Url.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

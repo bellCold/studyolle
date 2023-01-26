@@ -1,8 +1,8 @@
 package com.studyolle.main;
 
-import com.studyolle.account.AccountRepository;
-import com.studyolle.account.AccountService;
-import com.studyolle.account.SignUpForm;
+import com.studyolle.api.form.SignUpForm;
+import com.studyolle.application.AccountService;
+import com.studyolle.domain.account.AccountRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -84,7 +84,7 @@ class MainControllerTest {
     @DisplayName("로그아웃")
     void logout() throws Exception {
         mockMvc.perform(post("/logout")
-                .with(csrf()))
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
                 .andExpect(unauthenticated());

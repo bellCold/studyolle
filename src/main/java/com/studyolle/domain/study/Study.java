@@ -17,9 +17,12 @@ import java.util.Set;
         @NamedAttributeNode("managers"),
         @NamedAttributeNode("members")})
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "id")
-@Builder @NoArgsConstructor @AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Study {
 
     @Id
@@ -82,5 +85,21 @@ public class Study {
 
     public boolean isManager(UserAccount userAccount) {
         return this.managers.contains(userAccount.getAccount());
+    }
+
+    public void changeImage(String image) {
+        this.image = image;
+    }
+
+    public void enableStudyImage() {
+        this.useBanner = true;
+    }
+
+    public void disableStudyImage() {
+        this.useBanner = false;
+    }
+
+    public String getImage() {
+        return this.image == null ? "/images/default_banner.png" : this.image;
     }
 }
