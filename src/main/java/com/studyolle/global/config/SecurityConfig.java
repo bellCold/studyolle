@@ -52,6 +52,7 @@ public class SecurityConfig {
         return jdbcTokenRepository;
     }
 
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()

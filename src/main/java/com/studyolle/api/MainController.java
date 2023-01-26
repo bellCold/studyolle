@@ -1,7 +1,7 @@
 package com.studyolle.api;
 
-import com.studyolle.global.annotation.CurrentUser;
 import com.studyolle.domain.account.Account;
+import com.studyolle.global.annotation.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,6 @@ public class MainController {
         if (account != null) {
             model.addAttribute(account);
         }
-
         return "index";
     }
 

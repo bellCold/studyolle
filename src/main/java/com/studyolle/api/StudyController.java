@@ -1,11 +1,11 @@
 package com.studyolle.api;
 
-import com.studyolle.global.annotation.CurrentUser;
+import com.studyolle.api.form.StudyForm;
+import com.studyolle.application.StudyService;
 import com.studyolle.domain.account.Account;
 import com.studyolle.domain.study.Study;
 import com.studyolle.domain.study.StudyRepository;
-import com.studyolle.application.StudyService;
-import com.studyolle.api.form.StudyForm;
+import com.studyolle.global.annotation.CurrentUser;
 import com.studyolle.global.validator.StudyFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -57,15 +57,17 @@ public class StudyController {
 
     @GetMapping("/study/{path}")
     public String viewStudy(@CurrentUser Account account, @PathVariable String path, Model model) {
+        Study study = studyService.getStudy(path);
         model.addAttribute(account);
-        model.addAttribute(studyRepository.findByPath(path));
+        model.addAttribute(study);
         return "study/view";
     }
 
     @GetMapping("/study/{path}/members")
     public String viewStudyMembers(@CurrentUser Account account, @PathVariable String path, Model model) {
+        Study study = studyService.getStudy(path);
         model.addAttribute(account);
-        model.addAttribute(studyRepository.findByPath(path));
+        model.addAttribute(study);
         return "study/members";
     }
 }

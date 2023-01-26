@@ -7,7 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-@Getter @Setter
+@Getter
+@Setter
 public class StudyForm {
 
     @NotBlank

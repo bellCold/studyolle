@@ -1,5 +1,6 @@
 package com.studyolle.domain.account;
 
+import com.studyolle.domain.study.Study;
 import com.studyolle.domain.tag.Tag;
 import com.studyolle.domain.zone.Zone;
 import lombok.*;
@@ -85,5 +86,9 @@ public class Account {
 
     public boolean canSendConfirmEmail() {
         return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
+    }
+
+    public boolean isManagerOf(Study study) {
+        return study.getManagers().contains(this);
     }
 }

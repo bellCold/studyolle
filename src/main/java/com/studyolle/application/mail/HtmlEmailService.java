@@ -30,6 +30,7 @@ public class HtmlEmailService implements EmailService {
             log.error("sent email: {}", emailMessage.getMessage());
         } catch (MessagingException e) {
             log.error("failed to email", e);
+            throw new RuntimeException(e);
         }
     }
 }
