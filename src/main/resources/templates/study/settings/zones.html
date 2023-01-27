@@ -34,6 +34,8 @@
 <script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
 <script type="application/javascript">
     $(function () {
+        var studyPath = "[(${study.path})]";
+
         function tagRequest(url, zoneName) {
             $.ajax({
                 dataType: "json",
@@ -43,7 +45,7 @@
                 },
                 contentType: "application/json; charset=utf-8",
                 method: "POST",
-                url: "/settings/zones" + url,
+                url: "/study/" + studyPath + "/settings/zones" + url,
                 data: JSON.stringify({'zoneName': zoneName})
             }).done(function (data, status) {
                 console.log("${data} and status is ${status}");
@@ -63,7 +65,7 @@
         var tagify = new Tagify(tagInput, {
             enforceWhitelist: true,
             whitelist: JSON.parse(document.querySelector("#whitelist").textContent),
-            dropdown : {
+            dropdown: {
                 enabled: 1, // suggest tags after a single character input
             } // map tags
         });
