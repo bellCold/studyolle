@@ -4,11 +4,14 @@ import com.studyolle.api.form.StudyDescriptionForm;
 import com.studyolle.domain.account.Account;
 import com.studyolle.domain.study.Study;
 import com.studyolle.domain.study.StudyRepository;
+import com.studyolle.domain.zone.Zone;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 @Service
 @Transactional
@@ -54,5 +57,13 @@ public class StudyService {
 
     public void disableStudyBanner(Study study) {
         study.disableStudyImage();
+    }
+
+    public void addZone(Study study, Zone zone) {
+        study.getZones().add(zone);
+    }
+
+    public void removeZone(Study study, Zone zone) {
+        study.getZones().remove(zone);
     }
 }

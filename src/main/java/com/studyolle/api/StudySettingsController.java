@@ -1,24 +1,29 @@
 package com.studyolle.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studyolle.api.form.StudyDescriptionForm;
+import com.studyolle.api.form.ZoneForm;
 import com.studyolle.application.StudyService;
 import com.studyolle.domain.account.Account;
 import com.studyolle.domain.study.Study;
+import com.studyolle.domain.zone.Zone;
+import com.studyolle.domain.zone.ZoneRepository;
 import com.studyolle.global.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/study/{path}/settings")
@@ -27,6 +32,8 @@ public class StudySettingsController {
 
     private final StudyService studyService;
     private final ModelMapper modelMapper;
+    private final ZoneRepository zoneRepository;
+    private final ObjectMapper objectMapper;
 
     @GetMapping("/description")
     public String viewStudySetting(
@@ -109,5 +116,45 @@ public class StudySettingsController {
         return "redirect:/study/" + getPath(path) + "/settings/banner";
     }
 
+    @GetMapping("/zones")
+    public String studyZonesForm(
+            @CurrentUser Account account,
+            @PathVariable String path,
+            Model model
+    ) throws JsonProcessingException {
+
+        Study study = studyService.getStudyToUpdate(account, path);
+        model.addAttribute(account);
+        model.addAttribute(study);
+        model.addAttribute("zones", study.getZones().stream()
+                .map(Zone::toString).collect(Collectors.toList()));
+        List<String> allZones = zoneRepository.findAll().stream().map(Zone::toString).collect(Collectors.toList());
+        model.addAttribute("whitelist", objectMapper.writeValueAsString(allZones));
+        return "study/settings/zones";
+    }
+
+    @PostMapping("/zones/add")
+    @ResponseBody
+    public ResponseEntity<Void> addZone(@CurrentUser Account account, @PathVariable String path, @RequestBody ZoneForm zoneForm) {
+        Study study = studyService.getStudyToUpdate(account, path);
+        Zone zone = zoneRepository.findByCityAndProvince(zoneForm.getCityName(), zoneForm.getProvinceName());
+        if (zone == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        studyService.addZone(study, zone);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/zones/remove")
+    @ResponseBody
+    public ResponseEntity<Void> removeZone(@CurrentUser Account account, @PathVariable String path, @RequestBody ZoneForm zoneForm) {
+        Study study = studyService.getStudyToUpdate(account, path);
+        Zone zone = zoneRepository.findByCityAndProvince(zoneForm.getCityName(), zoneForm.getProvinceName());
+        if (zone == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        studyService.removeZone(study, zone);
+        return ResponseEntity.ok().build();
+    }
 
 }

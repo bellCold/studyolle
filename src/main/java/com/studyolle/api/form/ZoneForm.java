@@ -2,10 +2,12 @@ package com.studyolle.api.form;
 
 import com.studyolle.domain.zone.Zone;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ZoneForm {
 
     private String zoneName;
