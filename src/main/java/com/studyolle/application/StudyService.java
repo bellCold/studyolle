@@ -140,4 +140,13 @@ public class StudyService {
     public void updateStudyTitle(Study study, String newTitle) {
         study.setTitle(newTitle);
     }
+
+
+    public void removeMember(Study study, Account account) {
+        study.removeMember(account);
+    }
+
+    public void addMember(Study study, Account account) {
+        study.addMember(account);
+    }
 }

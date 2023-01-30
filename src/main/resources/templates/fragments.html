@@ -202,7 +202,7 @@
                             disabled>OFF</button>
                 </span>
             <span sec:authorize="isAuthenticated()" th:if="${study.isJoinable(#authentication.principal)}"
-                  class="btn-group" role="group" aria-label="Basic example">
+                  class="btn-group" role="group" aria-label="Basic example" method="post">
                     <a class="btn btn-primary" th:href="@{'/study/' + ${study.path} + '/join'}">
                         스터디 가입
                     </a>
