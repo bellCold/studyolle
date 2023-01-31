@@ -70,6 +70,7 @@ public class AccountController {
 
     @GetMapping("/check-email")
     public String checkEmail(@CurrentUser Account account, Model model) {
+        // test
         model.addAttribute("email", account.getEmail());
         return "account/check-email";
     }
