@@ -1,4 +1,4 @@
-package com.studyolle.global.validator;
+package com.studyolle.api.validator;
 
 import com.studyolle.api.form.PasswordForm;
 import org.springframework.validation.Errors;

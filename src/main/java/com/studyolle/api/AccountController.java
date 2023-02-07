@@ -5,7 +5,7 @@ import com.studyolle.application.AccountService;
 import com.studyolle.domain.account.AccountRepository;
 import com.studyolle.domain.account.Account;
 import com.studyolle.global.annotation.CurrentUser;
-import com.studyolle.global.validator.SignUpFormValidator;
+import com.studyolle.api.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,7 +70,6 @@ public class AccountController {
 
     @GetMapping("/check-email")
     public String checkEmail(@CurrentUser Account account, Model model) {
-        // test
         model.addAttribute("email", account.getEmail());
         return "account/check-email";
     }

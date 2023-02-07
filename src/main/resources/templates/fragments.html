@@ -194,13 +194,13 @@
                   class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="스터디 종료함">
                     <button class="btn btn-primary btn-sm" style="pointer-events: none;" type="button"
                             disabled>CLOSED</button>
-                </span>
+            </span>
             <span th:if="${!study.recruiting}"
                   class="d-inline-block ml-1" tabindex="0" data-toggle="tooltip" data-placement="bottom"
                   title="팀원 모집중 아님">
                     <button class="btn btn-primary btn-sm" style="pointer-events: none;" type="button"
                             disabled>OFF</button>
-                </span>
+            </span>
             <span sec:authorize="isAuthenticated()" th:if="${study.isJoinable(#authentication.principal)}"
                   class="btn-group" role="group" aria-label="Basic example" method="post">
                     <a class="btn btn-primary" th:href="@{'/study/' + ${study.path} + '/join'}">
@@ -208,7 +208,7 @@
                     </a>
                     <a class="btn btn-outline-primary" th:href="@{'/study/' + ${study.path} + '/members'}"
                        th:text="${study.members.size()}">1</a>
-                </span>
+            </span>
             <span sec:authorize="isAuthenticated()"
                   th:if="${!study.closed && study.isMember(#authentication.principal)}" class="btn-group" role="group">
                     <a class="btn btn-outline-warning" th:href="@{'/study/' + ${study.path} + '/leave'}">
@@ -216,13 +216,13 @@
                     </a>
                     <a class="btn btn-outline-primary" th:href="@{'/study/' + ${study.path} + '/members'}"
                        th:text="${study.members.size()}">1</a>
-                </span>
+            </span>
             <span sec:authorize="isAuthenticated()"
                   th:if="${study.published && !study.closed && study.isManager(#authentication.principal)}">
                     <a class="btn btn-outline-primary" th:href="@{'/study/' + ${study.path} + '/new-event'}">
                         <i class="fa fa-plus"></i> 모임 만들기
                     </a>
-                </span>
+            </span>
         </div>
     </div>
     <div class="row justify-content-center bg-light">
@@ -306,7 +306,7 @@
     <script src="/node_modules/summernote/dist/summernote-bs4.js"></script>
     <script type="application/javascript">
         $(function () {
-            $('#fullDescription').summernote({
+            $('.editor').summernote({
                 fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Noto Sans KR', 'Merriweather'],
                 placeholder: '스터디의 목표, 일정, 진행 방식, 사용할 교재 또는 인터넷 강좌 그리고 모집중인 스터디원 등 스터디에 대해 자세히 적어 주세요.',
                 tabsize: 2,
