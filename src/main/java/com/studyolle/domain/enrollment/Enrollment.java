@@ -1,6 +1,7 @@
-package com.studyolle.domain.event;
+package com.studyolle.domain.enrollment;
 
 import com.studyolle.domain.account.Account;
+import com.studyolle.domain.event.Event;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 public class Enrollment {
 

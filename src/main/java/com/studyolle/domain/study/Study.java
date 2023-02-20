@@ -1,9 +1,9 @@
 package com.studyolle.domain.study;
 
-import com.studyolle.domain.tag.Tag;
-import com.studyolle.domain.zone.Zone;
 import com.studyolle.domain.account.Account;
 import com.studyolle.domain.account.UserAccount;
+import com.studyolle.domain.tag.Tag;
+import com.studyolle.domain.zone.Zone;
 import lombok.*;
 
 import javax.persistence.*;

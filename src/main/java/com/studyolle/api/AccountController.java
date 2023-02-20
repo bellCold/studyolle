@@ -1,11 +1,11 @@
 package com.studyolle.api;
 
 import com.studyolle.api.form.SignUpForm;
-import com.studyolle.application.AccountService;
-import com.studyolle.domain.account.AccountRepository;
-import com.studyolle.domain.account.Account;
-import com.studyolle.global.annotation.CurrentUser;
 import com.studyolle.api.validator.SignUpFormValidator;
+import com.studyolle.application.AccountService;
+import com.studyolle.domain.account.Account;
+import com.studyolle.domain.account.AccountRepository;
+import com.studyolle.global.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

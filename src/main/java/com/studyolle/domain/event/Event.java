@@ -2,6 +2,7 @@ package com.studyolle.domain.event;
 
 import com.studyolle.domain.account.Account;
 import com.studyolle.domain.account.UserAccount;
+import com.studyolle.domain.enrollment.Enrollment;
 import com.studyolle.domain.study.Study;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,8 +12,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@NamedEntityGraph(
+        name = "Event.withEnrollments",
+        attributeNodes = @NamedAttributeNode("enrollments")
+)
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 public class Event {
 
@@ -79,5 +85,9 @@ public class Event {
     private boolean isAlreadyEnrolled(UserAccount userAccount) {
         Account account = userAccount.getAccount();
         return this.enrollments.stream().anyMatch(value -> value.equals(account));
+    }
+
+    public int numberOfRemainSpots() {
+        return this.limitOfEnrollments - (int) this.enrollments.stream().filter(Enrollment::isAccepted).count();
     }
 }

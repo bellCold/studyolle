@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,5 +24,9 @@ public class EventService {
 
     public Event findEvent(Long id) {
         return eventRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    public List<Event> findByStudy(Study study) {
+        return eventRepository.findByStudyOrderByStartDateTime(study);
     }
 }

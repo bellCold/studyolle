@@ -1,12 +1,12 @@
 package com.studyolle.api;
 
 import com.studyolle.api.form.StudyForm;
+import com.studyolle.api.validator.StudyFormValidator;
 import com.studyolle.application.StudyService;
 import com.studyolle.domain.account.Account;
 import com.studyolle.domain.study.Study;
 import com.studyolle.domain.study.StudyRepository;
 import com.studyolle.global.annotation.CurrentUser;
-import com.studyolle.api.validator.StudyFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;

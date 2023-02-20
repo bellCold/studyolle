@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -191,6 +189,7 @@ public class StudySettingsController {
         studyService.removeZone(study, zone);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/study")
     public String studySettingForm(@CurrentUser Account account, @PathVariable String path, Model model) {
         Study study = studyService.getStudyToUpdate(account, path);
